@@ -1,6 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "skill-marketplace",
+  "name": "devmo-skills",
   "description": "William Hayes' personal collection of Claude Code skills",
   "owner": {
     "name": "William Hayes",
@@ -61,6 +61,13 @@
       "description": "Create, extend, or audit Django 6 apps the house way. A qualifying interview (tenant-based? SSO? GxP? Stripe? API?) decides which reference modules load, so simple apps never pull in RLS or Part 11 context. Ships a tested, renderable project skeleton (uv/src layout, justfile, Postgres-only infra, django-rls two-role tenancy, promote-by-digest deploys), distilled from appsfolio, eqms, gxpsign, meetingsignals and refractions.",
       "category": "development",
       "source": "./plugins/django-app",
+      "strict": true
+    },
+    {
+      "name": "promo-videos",
+      "description": "Storyboard-first product video pipeline for Claude Code: teasers, promos, overviews, and tutorial series. Captures assets from a website or user files, generates ElevenLabs voiceover with word timestamps, sources background music (ElevenLabs Music or GarageBand loops), and renders with Remotion to MP4.",
+      "category": "productivity",
+      "source": "./plugins/promo-videos",
       "strict": true
     }
   ]

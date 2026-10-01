@@ -1,4 +1,4 @@
-# skill-marketplace
+# devmo-skills
 
 A [Claude Code](https://claude.com/claude-code) plugin marketplace hosting personal skills.
 
@@ -13,6 +13,7 @@ A [Claude Code](https://claude.com/claude-code) plugin marketplace hosting perso
 | [`uv`](plugins/uv) | Checks whether the [`uv`](https://github.com/astral-sh/uv) Python package manager is installed and installs it if missing, ensuring it's on `PATH`. Used as a prerequisite by other skills that run Python, or when a `pip install` is requested. |
 | [`html-app`](plugins/html-app) | Build elaborate, self-contained single-file HTML app artifacts for claude.ai using React, TypeScript, Tailwind CSS v4, and shadcn/ui. Scaffolds a Vite project with 56 pre-installed components, then bundles everything (JS, CSS, assets) into one inlined HTML file. _Adapted from Anthropic's [`web-artifacts-builder`](https://github.com/anthropics/skills) (Apache 2.0), modernized to Node 20+ / Tailwind v4 / React 19._ |
 | [`django-app`](plugins/django-app) | Create, extend, or audit Django 6 apps using house conventions. Qualifying questions (tenant-based → django-rls, SSO, GxP, Stripe, API/MCP) select which reference modules load, so unneeded context stays out. Includes a tested project skeleton rendered by `scripts/render.py`: uv + `src/` layout, justfile, portless HTTPS, Procrastinate + DatabaseCache on Postgres, Tailwind standalone + HTMX, GHCR deploys with promote-by-digest. |
+| [`promo-videos`](plugins/promo-videos) | Storyboard-first product video pipeline: teaser, promo (hook/problem/solution), overview, and tutorial series. Captures website or user assets, generates ElevenLabs voiceover with word timestamps for sync, sources music (ElevenLabs Music or GarageBand loops), and renders MP4s with Remotion. Requires `ELEVENLABS_API_KEY`, Node, ffmpeg, and the official [Remotion Claude Code plugin](https://www.remotion.dev/docs/ai/claude-code-plugin). |
 
 ## Use it
 
@@ -21,26 +22,27 @@ A [Claude Code](https://claude.com/claude-code) plugin marketplace hosting perso
 From inside Claude Code, run:
 
 ```
-/plugin marketplace add wshayes/skill-marketplace
+/plugin marketplace add wshayes/devmo-skills
 ```
 
 Other supported sources:
 
 ```
-/plugin marketplace add https://github.com/wshayes/skill-marketplace.git
-/plugin marketplace add /absolute/path/to/skill-marketplace      # local checkout
+/plugin marketplace add https://github.com/wshayes/devmo-skills.git
+/plugin marketplace add /absolute/path/to/devmo-skills      # local checkout
 ```
 
 ### 2. Install a plugin
 
 ```
-/plugin install gxp-review-general@skill-marketplace
-/plugin install gxp-doc@skill-marketplace
-/plugin install executive-pptx@skill-marketplace
-/plugin install design-md@skill-marketplace
-/plugin install uv@skill-marketplace
-/plugin install html-app@skill-marketplace
-/plugin install django-app@skill-marketplace
+/plugin install gxp-review-general@devmo-skills
+/plugin install gxp-doc@devmo-skills
+/plugin install executive-pptx@devmo-skills
+/plugin install design-md@devmo-skills
+/plugin install uv@devmo-skills
+/plugin install html-app@devmo-skills
+/plugin install django-app@devmo-skills
+/plugin install promo-videos@devmo-skills
 /reload-plugins
 ```
 
@@ -67,8 +69,8 @@ See [`plugins/gxp-review-general/skills/gxp-review-general/SKILL.md`](plugins/gx
 
 ```
 /plugin                              # interactive plugin manager (browse / enable / disable / uninstall)
-/plugin marketplace update skill-marketplace
-/plugin marketplace remove skill-marketplace
+/plugin marketplace update devmo-skills
+/plugin marketplace remove devmo-skills
 ```
 
 ## Layout
@@ -91,4 +93,4 @@ plugins/
 1. Create `plugins/<name>/.claude-plugin/plugin.json` with `name`, `description`, `version`, `author`.
 2. Drop the skill into `plugins/<name>/skills/<skill-name>/SKILL.md` (with optional `references/` and `assets/`).
 3. Add an entry to `.claude-plugin/marketplace.json` under `plugins`, with `source: "./plugins/<name>"`.
-4. Commit and push. Subscribers run `/plugin marketplace update skill-marketplace` to pick it up.
+4. Commit and push. Subscribers run `/plugin marketplace update devmo-skills` to pick it up.

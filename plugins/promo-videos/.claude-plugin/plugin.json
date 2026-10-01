@@ -1,0 +1,9 @@
+{
+  "name": "promo-videos",
+  "description": "Storyboard-first product video pipeline for Claude Code: teasers, promos, overviews, and tutorial series. Captures assets from a website or user files, generates ElevenLabs voiceover with word timestamps, sources background music (ElevenLabs Music or GarageBand loops), and renders with Remotion to MP4.",
+  "version": "1.0.0",
+  "author": {
+    "name": "William Hayes",
+    "email": "william.s.hayes@gmail.com"
+  }
+}
