@@ -2,7 +2,7 @@
 
 ## Process
 1. **One-sentence message.** Write down what the viewer should remember. Every scene must serve it.
-2. **Beat sheet.** List the structural beats for the type (see `video-types.md`), with target seconds per beat.
+2. **Beat sheet.** List the structural beats for the type (see `guidelines/<type>.md`), with target seconds per beat.
 3. **VO script.** Write it for the ear. Use short sentences, contractions, and active voice, with one idea per sentence. Read it aloud in your head. If you'd stumble, rewrite it.
 4. **Visual per line.** Every VO line gets a visual that *shows* what's said. If the VO and visual say the same thing, cut the on-screen text.
 5. **Count words** against the budget, and cut until it fits.
@@ -24,7 +24,7 @@
 ```jsonc
 {
   "type": "teaser | promo | overview | tutorial",
-  "product": { "name": "Acme", "url": "https://acme.com", "cta": "Start free at acme.com" },
+  "product": { "name": "Acme", "url": "https://acme.com", "cta": "Start free at acme.com", "version": "2026.10" },
   "width": 1920, "height": 1080, "fps": 30,
   "voice": { "voiceId": "JBFqnCBsd6RMkjVDRZzb", "modelId": "eleven_multilingual_v2" },
   "music": { "source": "elevenlabs | garageband | file", "prompt": "upbeat minimal electronic, 110 bpm, warm synths, no vocals", "loops": [] },
@@ -43,6 +43,8 @@
           "camera": "zoom-in",
           "transition": "cut",
           "emphasis": ["ten"],    // words whose startMs triggers a visual beat
+          "chapter": null,        // overview/tutorial: chapter title starting at this scene (YouTube chapters)
+          "step": null,           // tutorial: step number shown on screen ("Step 2 of 5")
           "minSec": 2             // floor; actual = max(minSec, VO + 0.5s)
         }
       ]

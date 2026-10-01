@@ -34,7 +34,7 @@ node --version; ffmpeg -version | head -1; [ -n "$ELEVENLABS_API_KEY" ] && echo 
 
 Use AskUserQuestion. Ask everything in one call where possible:
 
-1. **Type**: Teaser / Promo / Overview / Tutorial series (see [`references/video-types.md`](references/video-types.md)).
+1. **Type**: Teaser / Promo / Overview / Tutorial series (see [`references/video-types.md`](references/video-types.md) for the comparison and the "which type?" table).
 2. **Product**: name, URL, and the one-line value proposition.
 3. **Audience and CTA**: who it's for, and what they should do afterwards (URL, "start free trial").
 4. **Format**: 16:9 1920×1080 (default), 9:16 1080×1920 (Reels/Shorts/TikTok), or 1:1 1080×1080. Use 30 fps unless asked otherwise.
@@ -52,14 +52,21 @@ mkdir -p videos && npx -y create-video@latest --yes --blank --no-tailwind videos
 
 Add `"resolveJsonModule": true` to its `tsconfig.json` `compilerOptions`, so `src/timing.json` can be imported.
 
+**Before drafting, read the best-practice guidelines:**
+- [`references/guidelines/common.md`](references/guidelines/common.md), which applies to every type.
+- The chosen type's file: [`teaser.md`](references/guidelines/teaser.md), [`promo.md`](references/guidelines/promo.md), [`overview.md`](references/guidelines/overview.md), or [`tutorial.md`](references/guidelines/tutorial.md).
+
+The structure, beat timings, script rules and pitfalls there are requirements, not suggestions. Load only the type being made.
+
 Read [`references/storyboard.md`](references/storyboard.md) and write two files in the project folder `./videos/<product-slug>/`:
 
 - `storyboard.json`: the single source of truth (schema in the reference).
 - `storyboard.md`: a human-readable table with #, purpose, VO, on-screen text, visual, camera move, and duration.
 
 Hard rules:
-- **Word budget** is about 2.5 spoken words/second. Count words per video, and if a draft is over budget, cut it before showing the user.
-- One idea per scene. Hook in the first 1–3 seconds. The CTA is the final scene.
+- **Word budget** uses the type's VO pace (`video-types.md`). Count words per video, and if a draft is over budget, cut it before showing the user.
+- Follow the type's beat structure and timings from its guideline file. One idea per scene.
+- When you present the storyboard, flag any deviation from the guidelines and say why.
 - Every scene names the asset(s) it needs, even ones not captured yet.
 
 Print the `storyboard.md` table in the terminal and **ask for approval or edits before any API spend.** Iterate on the files until the user approves.
@@ -124,5 +131,8 @@ ffprobe -v error -show_entries format=duration:stream=codec_type -of compact vid
 
 - The duration must match `timing.json` `seconds` (±0.1s), and the file must contain both `video` and `audio` streams.
 - Extract one still per scene midpoint (`npx remotion still <id> --frame=<n>`) and look at them.
+- Run the type's **pre-render checklist** (end of its guideline file) against the stills and `timing.json`, check loudness (`common.md`), and report each item as pass or fail. Fix the failures before delivering.
+- Overview and tutorial videos: write `out/<id>.chapters.txt` from scenes with a `chapter` field, using `timing.json` `from`/fps for the times, and export `out/<id>.srt` via `/remotion-captions`.
+- Export a poster still (`npx remotion still <id> out/<id>-poster.png --frame=<best frame>`).
 - Deliver the paths: the Remotion project (`videos/<slug>/`, which includes `storyboard.json`, so it can be edited and re-rendered) and `videos/<slug>/out/*.mp4`.
 - Suggest that the user add `out/` and `public/vo/` to `.gitignore` if the project is under git.
